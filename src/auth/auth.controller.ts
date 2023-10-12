@@ -10,7 +10,10 @@ export class AuthController {
   @Post('login')
   signIn(
     @Body()
-    signInDto: User,
+    signInDto: Omit<
+      User,
+      'id' | 'date_created' | 'date_modified' | 'first_name' | 'last_name'
+    >,
   ) {
     return this.authService.login(signInDto);
   }

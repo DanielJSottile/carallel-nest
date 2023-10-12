@@ -22,7 +22,7 @@ export class ArticlesController {
 
   @Get('related/:id')
   @UseGuards(AuthGuard)
-  findRelatedl(@Param('id') id: string) {
+  findRelated(@Param('id') id: string) {
     return this.articlesService.findRelatedArticles(id);
   }
 

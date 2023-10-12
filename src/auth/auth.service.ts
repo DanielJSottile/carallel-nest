@@ -29,13 +29,13 @@ export class AuthService {
     return null;
   }
 
-  async login({ user_name, date_created, date_modified, id, password }) {
+  async login({ user_name, password }) {
     const subject = user_name;
-    const payload = { user_id: id };
     const validated = await this.validateUser(user_name, password);
     if (!validated) {
       throw new UnauthorizedException();
     } else {
+      const payload = { user_id: validated.id };
       return {
         user: {
           ...validated,

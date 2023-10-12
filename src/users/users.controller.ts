@@ -21,18 +21,20 @@ export class UsersController {
     return this.usersService.createUser(createUserDto);
   }
 
-  @Get()
-  @UseGuards(AuthGuard)
-  getUsers() {
-    return this.usersService.getUsers();
-  }
-
   @Get(':id')
   @UseGuards(AuthGuard)
   getUser(@Param('id') id: Prisma.usersWhereUniqueInput) {
     return this.usersService.getUser(id);
   }
 
+  /** unused */
+  @Get()
+  @UseGuards(AuthGuard)
+  getUsers() {
+    return this.usersService.getUsers();
+  }
+
+  /** unused */
   @Put(':id')
   @UseGuards(AuthGuard)
   updateUser(
@@ -42,6 +44,7 @@ export class UsersController {
     return this.usersService.updateUser({ where: id, data: updateUserDto });
   }
 
+  /** unused */
   @Delete(':id')
   @UseGuards(AuthGuard)
   deleteUser(@Param('id') id: Prisma.usersWhereUniqueInput) {
