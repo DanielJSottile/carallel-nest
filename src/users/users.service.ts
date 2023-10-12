@@ -38,7 +38,7 @@ export class UsersService {
   }
 
   async createUser(data: Prisma.usersCreateInput): Promise<User> {
-    if (this.getUser({ id: data.user_name })) {
+    if (await this.getUser({ user_name: data.user_name })) {
       throw new HttpException(
         {
           status: HttpStatus.CONFLICT,
@@ -49,7 +49,7 @@ export class UsersService {
         HttpStatus.CONFLICT,
       );
     }
-    const pw = hash(data.password, 12) as string;
+    const pw = (await hash(data.password, 12)) as string;
     return this.prisma.users.create({
       data: { ...data, password: pw },
     });

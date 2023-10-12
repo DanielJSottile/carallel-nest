@@ -7,4 +7,7 @@ export default () => ({
     secret: process.env.JWT_SECRET,
     expiry: process.env.JWT_EXPIRY || '18000s',
   },
+  news: {
+    key: process.env.NEWS_API_KEY,
+  },
 });

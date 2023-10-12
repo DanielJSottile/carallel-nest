@@ -11,7 +11,17 @@ model users {
   id            String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   user_name     String    @unique
   password      String
-  links_visited String[]
   date_created  DateTime  @default(now()) @db.Timestamptz(6)
   date_modified DateTime? @db.Timestamptz(6)
+  first_name    String?
+  last_name     String?
+  links         links[]
+}
+
+model links {
+  link_id   String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  url       String
+  user_id   String    @db.Uuid
+  timestamp DateTime? @default(now()) @db.Timestamp(6)
+  users     users     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

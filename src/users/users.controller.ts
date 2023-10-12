@@ -6,9 +6,11 @@ import {
   Delete,
   Body,
   Param,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { users as User, Prisma } from '@prisma/client';
+import { Prisma } from '@prisma/client';
+import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -20,16 +22,19 @@ export class UsersController {
   }
 
   @Get()
+  @UseGuards(AuthGuard)
   getUsers() {
     return this.usersService.getUsers();
   }
 
   @Get(':id')
+  @UseGuards(AuthGuard)
   getUser(@Param('id') id: Prisma.usersWhereUniqueInput) {
     return this.usersService.getUser(id);
   }
 
   @Put(':id')
+  @UseGuards(AuthGuard)
   updateUser(
     @Param('id') id: Prisma.usersWhereUniqueInput,
     @Body() updateUserDto: Prisma.usersUpdateInput,
@@ -38,6 +43,7 @@ export class UsersController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard)
   deleteUser(@Param('id') id: Prisma.usersWhereUniqueInput) {
     return this.usersService.deleteUser(id);
   }
