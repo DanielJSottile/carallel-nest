@@ -71,3 +71,70 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+## Application Requirements
+
+This application has several requirements:
+
+- A Posgresql database with tables User and Links
+
+- Environment variables:
+
+- NEWS_API_KEY (this can be gotten at https://www.thenewsapi.com)
+- APP_API_KEY (this must match the front end key, but can be any secret)
+- DATABASE_URL="postgresql://postgres@localhost/carallel" (the database url string)
+- PORT=8080 (or any port number)
+- JWT_SECRET (any random secret used to create the JWT)
+
+## Documentation
+
+All endpoints have an 'X-API-KEY' authentication guard.
+
+### Users
+
+#### POST /users
+Authentication: Public
+Takes an body object of {first_name: string, last_name: string, user_name: string, password: string} and creates a user.
+#### GET /users/:id
+Authentication: Bearer Token
+Uses a parameter for the id of the user and returns the user
+
+#### GET /users (unused)
+Authentication: Bearer Token
+Gets a list of users
+
+#### PUT /users/:id (unused)
+Authentication: Bearer Token
+Uses a parameter for the id of the user with a body of changed fields and returns the user
+#### DELETE /users/:id (unused)
+Authentication: Bearer Token
+Uses a parameter for the id of the user and deletes the user
+
+### Links
+#### POST /links
+Authentication: Bearer Token
+Takes an body object of {url: string, user_id: string} and creates a link with that user
+
+#### GET /links/:id
+Authentication: Bearer Token
+Uses a parameter for the id of the user and returns a list of links
+
+### Auth
+
+#### POST /auth/login
+Authentication: Public
+Takes a body object of {user_name: string, password: string} and returns a user and JWT access token
+
+### Articles
+
+#### GET /articles
+Authentication: Public
+Gets a list of 12 of the lastest articles
+
+#### GET /articles/related/:id
+Authentication: Bearer Token
+Gets a list of 6 of the related articles of the id of an article
+
+#### GET /articles/:id
+Authentication: Bearer Token
+Gets a single article by parameter id
