@@ -10,4 +10,7 @@ export default () => ({
   news: {
     key: process.env.NEWS_API_KEY,
   },
+  api: {
+    key: process.env.APP_API_KEY,
+  },
 });
